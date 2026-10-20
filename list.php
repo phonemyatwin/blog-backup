@@ -38,18 +38,18 @@
                         <tbody>
                             <?php
                             $no = 0;
-                            while ($post = $raw_data->fetch_assoc()):
+                            while ($posts = $raw_data->fetch_assoc()):
                                 $no++;
                             ?>
                                 <tr>
                                     <th scope="row"><?= $no; ?></th>
-                                    <td><?= $post["title"]; ?></td>
-                                    <td><?= $post["author"]; ?></td>
-                                    <td><span class="badge bg-success"><?= $post["viewer"]; ?></span></td>
-                                    <td><?= $post["created_at"]; ?></td>
+                                    <td><?= $posts["title"]; ?></td>
+                                    <td><?= $posts["author"]; ?></td>
+                                    <td><span class="badge bg-success"><?= $posts["viewer"]; ?></span></td>
+                                    <td><?= $posts["created_at"]; ?></td>
                                     <td>
-                                        <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="delete.php?id=<?= $post['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="update.php?id=<?= $posts['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="delete.php?id=<?= $posts['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                             <?php

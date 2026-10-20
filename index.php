@@ -23,22 +23,22 @@
                 <div class="row">
                     <!-- Card Start -->
                     <?php
-                    while ($post = $raw_data->fetch_assoc()):
+                    while ($posts = $raw_data->fetch_assoc()):
                     ?>
                         <div class="mb-3 col-12 col-md-6 col-lg-4">
                             <div class="card h-100">
                                 <div class="card-header">
-                                    <h4 class="card-title mb-0"><?= $post["title"]; ?></h4>
+                                    <h4 class="card-title mb-0"><?= $posts["title"]; ?></h4>
                                 </div>
                                 <div class="card-body">
-                                    <img src="images/placeholder.svg" alt="Post image" class="card-img-top mb-3">
-                                    <p class="card-text"><?= $post["author"]; ?></p>
-                                    <p class="card-text">Viewer - <span class="badge bg-success"><?= $post["viewer"]; ?></span></p>
-                                    <p class="card-text mb-0"><?= $post["content"]; ?></p>
+                                    <img src="media/<?= $posts["image"]; ?>" alt="Post image" class="card-img-top mb-3">
+                                    <p class="card-text"><?= $posts["author"]; ?></p>
+                                    <p class="card-text">Viewer - <span class="badge bg-success"><?= $posts["viewer"]; ?></span></p>
+                                    <p class="card-text mb-0"><?= $posts["content"]; ?></p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <p class="text-muted mb-0"><?= $post["created_at"]; ?></p>
-                                    <a href="details.php?id=<?= $post["id"]; ?>" class="btn btn-dark btn-sm">Details</a>
+                                    <p class="text-muted mb-0"><?= $posts["created_at"]; ?></p>
+                                    <a href="details.php?id=<?= $posts["id"]; ?>" class="btn btn-dark btn-sm">Details</a>
                                 </div>
                             </div>
                         </div>

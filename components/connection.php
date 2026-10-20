@@ -3,7 +3,7 @@
 $hostname = "localhost";
 $username = "nexus";
 $password = "thuyumyat";
-$database = "blog";
+$database = "blog_db";
 $connection = new mysqli($hostname, $username, $password, $database);
 
 if ($connection->connect_error) {

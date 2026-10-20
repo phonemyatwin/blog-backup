@@ -13,16 +13,27 @@
     $id = $_GET["id"];
     $data = "SELECT * FROM posts WHERE id='$id'";
     $raw_data = $connection->query($data);
-    $post = $raw_data->fetch_assoc();
+    $posts = $raw_data->fetch_assoc();
 
     $title = $_POST["title"];
     $author = $_POST["author"];
     $viewer = $_POST["viewer"];
-    $image = $_POST["image"];
     $content = $_POST["content"];
     $update = $_POST["update"];
     $cancel = $_POST["cancel"];
+    $old_image = $posts["image"];
+    $new_image = time() . "_" . $_FILES["image"]["name"];
+
     if (isset($update)) {
+        if ($new_image) {
+            $image = $new_image;
+            if (file_exists("media/" . $old_image)) {
+                unlink("media/" . $old_image);
+            }
+            move_uploaded_file($_FILES["image"]["tmp_name"], "media/" . $image);
+        } else {
+            $image = $old_image;
+        }
         $data = "UPDATE posts SET title='$title', author='$author', viewer='$viewer', image='$image', content='$content' WHERE id ='$id'";
         $connection->query($data);
         header("location: list.php");
@@ -43,18 +54,18 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" value="<?= $post['title']; ?>" required>
+                                <input type="text" class="form-control" name="title" id="title" value="<?= $posts['title']; ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="author" class="form-label">Author</label>
-                                <input type="text" class="form-control" name="author" id="author" value="<?= $post['author']; ?>" required>
+                                <input type="text" class="form-control" name="author" id="author" value="<?= $posts['author']; ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="viewer" class="form-label">Viewer</label>
-                                <input type="number" class="form-control" name="viewer" id="viewer" min="0" value="<?= $post['viewer']; ?>" required>
+                                <input type="number" class="form-control" name="viewer" id="viewer" min="0" value="<?= $posts['viewer']; ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
@@ -63,7 +74,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="content" class="form-label">Content</label>
-                                <textarea class="form-control" name="content" id="content" rows="6" required><?= $post['content']; ?></textarea>
+                                <textarea class="form-control" name="content" id="content" rows="6" required><?= $posts['content']; ?></textarea>
                             </div>
                             <div class="d-flex gap-2">
                                 <button type="submit" name="update" class="btn btn-dark">Update Post</button>

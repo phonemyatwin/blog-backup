@@ -13,11 +13,12 @@
     $id = $_GET["id"];
     $data = "SELECT * FROM posts WHERE id=$id";
     $raw_data = $connection->query($data);
-    $post = $raw_data->fetch_assoc();
+    $posts = $raw_data->fetch_assoc();
 
     $delete = $_POST["delete"];
     $cancel = $_POST["cancel"];
     if (isset($delete)) {
+        unlink("media/" . $posts["image"]);
         $data = "DELETE FROM posts WHERE id=$id";
         $connection->query($data);
         header("location:list.php");
@@ -40,11 +41,11 @@
                         </div>
                         <dl class="row mb-0">
                             <dt class="col-sm-4">Title</dt>
-                            <dd class="col-sm-8"><?= $post["title"]; ?></dd>
+                            <dd class="col-sm-8"><?= $posts["title"]; ?></dd>
                             <dt class="col-sm-4">Author</dt>
-                            <dd class="col-sm-8"><?= $post["author"]; ?></dd>
+                            <dd class="col-sm-8"><?= $posts["author"]; ?></dd>
                             <dt class="col-sm-4">Created At</dt>
-                            <dd class="col-sm-8 mb-0"><?= $post["created_at"]; ?></dd>
+                            <dd class="col-sm-8 mb-0"><?= $posts["created_at"]; ?></dd>
                         </dl>
                     </div>
                     <div class="card-footer">
