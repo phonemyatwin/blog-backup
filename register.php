@@ -19,9 +19,9 @@
 
     if (isset($register)) {
         if ($password == $cpassword) {
-            $data = "INSERT INTO account(name, email, password) VALUE('$name', '$email', '$password')";
+            $data = "INSERT INTO users(name, email, password) VALUE('$name', '$email', '$password')";
             $connection->query($data);
-            header("location:index.php");
+            header("location:login.php");
         } else {
             $not_match = "Passwords do not match. Please try again.";
         }

@@ -10,9 +10,9 @@
 
 <body>
     <?php include 'components/connection.php';
-    $data = "SELECT * FROM account";
+    $data = "SELECT * FROM users";
     $raw_data = $connection->query($data);
-    while ($account = $raw_data->fetch_assoc()):
+    while ($users = $raw_data->fetch_assoc()):
 
         $email = $_POST["email"];
         $password = $_POST["password"];
@@ -21,7 +21,7 @@
         $not_match = "";
 
         if (isset($login)) {
-            if ($email == $account["email"] && $password == $account["password"]) {
+            if ($email == $users["email"] && $password == $users["password"]) {
                 if (isset($remember)) {
                     setcookie("c_email", $email, time() + 60 * 999999999);
                     setcookie("c_password", $password, time() + 60 * 999999999);
