@@ -27,7 +27,7 @@
             if ($password == $cpassword) {
                 $data = "INSERT INTO users(name, email, password) VALUE('$name', '$email', '$hashed_password')";
                 $connection->query($data);
-                // header("location:login.php");
+                header("location:login.php");
             } else {
                 $not_match = "Passwords do not match. Please try again.";
             }

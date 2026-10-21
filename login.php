@@ -10,18 +10,18 @@
 
 <body>
     <?php include 'components/connection.php';
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $remember = $_POST["remember"];
+    $login = $_POST["login"];
+    $not_match = "";
+
     $data = "SELECT * FROM users";
     $raw_data = $connection->query($data);
     while ($users = $raw_data->fetch_assoc()):
-
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $remember = $_POST["remember"];
-        $login = $_POST["login"];
-        $not_match = "";
-
         if (isset($login)) {
-            if ($email == $users["email"] && $password == $users["password"]) {
+            $hashed_password = password_verify($password, $users["password"]);
+            if ($email == $users["email"] && $password == $hashed_password) {
                 if (isset($remember)) {
                     setcookie("c_email", $email, time() + 60 * 999999999);
                     setcookie("c_password", $password, time() + 60 * 999999999);
